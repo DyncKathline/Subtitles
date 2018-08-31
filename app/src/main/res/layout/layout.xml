@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000"
+    android:focusable="true"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/player_view_bg2" />
+
+    <org.dync.subtitleconverter.SubtitleView
+        android:id="@+id/subtitleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <HorizontalScrollView
+        android:id="@+id/horscroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnASS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加载ASS" />
+
+            <Button
+                android:id="@+id/btnSCC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加载SCC" />
+
+            <Button
+                android:id="@+id/btnSRT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加载SRT" />
+
+            <Button
+                android:id="@+id/btnSTL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加载STL" />
+
+            <Button
+                android:id="@+id/btnXXML"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加载XML" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="查看某时间字幕(时间戳)"
+            android:inputType="number"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff" />
+
+        <Button
+            android:id="@+id/seekTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="seekTo" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="70dp"/>
+
+</FrameLayout>
