@@ -1,7 +1,6 @@
 # Subtitles
-字幕解析显示demo
+字幕解析显示demo  
+[由subtitleConverter库改动而来](https://note.youdao.com/)  
 
-version-1.0.1
-interpreting subtitle data and show in screen,Android
-
-2017/09/25
+## 效果图   
+![image](https://raw.githubusercontent.com/DyncKathline/Subtitles/master/shotScreen/GIF.gif)  
