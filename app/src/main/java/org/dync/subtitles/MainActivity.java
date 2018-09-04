@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnSRT;
     @BindView(R.id.btnSTL)
     Button btnSTL;
-    @BindView(R.id.btnXXML)
-    Button btnXXML;
+    @BindView(R.id.btnXML)
+    Button btnXML;
     @BindView(R.id.edittext)
     EditText edittext;
     @BindView(R.id.seekTo)
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.btnASS, R.id.btnSCC, R.id.btnSRT, R.id.btnSTL, R.id.btnXXML, R.id.seekTo})
+    @OnClick({R.id.btnASS, R.id.btnSCC, R.id.btnSRT, R.id.btnSTL, R.id.btnXML, R.id.seekTo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnASS:
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                         TimedTextObject tto;
                         TimedTextFileFormat ttff;
                         try {
-                            InputStream is = getAssets().open("standards/SRT/Oceans.Eight.2018.1080p.BluRay.x264-SPARKS.简体.srt");
+                            InputStream is = getAssets().open("standards/SRT/哆啦A梦：伴我同行.1080P.x264.Hi10P.flac.chs.srt");
                             ttff = new FormatSRT();
 
                             tto = ttff.parseFile("test", is);
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).start();
                 break;
-            case R.id.btnXXML:
+            case R.id.btnXML:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

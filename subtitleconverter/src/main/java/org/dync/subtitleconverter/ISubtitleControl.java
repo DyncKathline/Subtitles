@@ -3,9 +3,7 @@ package org.dync.subtitleconverter;
 import org.dync.subtitleconverter.subtitleFile.TimedTextObject;
 
 /**
- * @Auther jixiongxu
- * @dat 2017/9/21
- * @descraption 字幕控制接口
+ * 字幕控制接口
  */
 
 public interface ISubtitleControl
@@ -29,7 +27,7 @@ public interface ISubtitleControl
      * 
      * @param position
      */
-    void seekTo(int position);
+    void seekTo(long position);
 
     /**
      * 设置数据

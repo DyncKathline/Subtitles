@@ -17,9 +17,7 @@ import org.dync.subtitleconverter.subtitleFile.TimedTextObject;
 import java.util.TreeMap;
 
 /**
- * @date 2017/9/20
- * @Auther jixiongxu
- * @descraptio 显示字幕的图层
+ * 显示字幕的图层
  */
 public class SubtitleView extends LinearLayout implements ISubtitleControl, SubtitleClickListener {
     private final String TAG = getClass().getSimpleName();
@@ -122,12 +120,12 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
 
     @Override
     public void setItemSubtitleEnglish(String item) {
-        subEnglish.setText(item);
-//        subEnglish.setText(Html.fromHtml(item));
+//        subEnglish.setText(item);
+        subEnglish.setText(Html.fromHtml(item));
     }
 
     @Override
-    public void seekTo(int position) {
+    public void seekTo(long position) {
         if (model != null && !model.captions.isEmpty()) {
             caption = searchSub(model.captions, position);
         }
@@ -199,7 +197,7 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
      * @param key  播放的时间点
      * @return
      */
-    public Caption searchSub(TreeMap<Integer, Caption> list, int key) {
+    public Caption searchSub(TreeMap<Integer, Caption> list, long key) {
 //        int start = 0;
 //        int end = list.size() - 1;
 //        while (start <= end) {
@@ -221,9 +219,9 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
 //        }
         for(Integer key1 : list.keySet()) {
             Caption caption = list.get(key1);
-            Log.d(TAG, "position: " + key + ", start: " + caption.start.getMseconds() + ",end: " + caption.end.getMseconds());
+//            Log.d(TAG, "position: " + key + ", start: " + caption.start.getMseconds() + ",end: " + caption.end.getMseconds());
             if (key >= caption.start.getMseconds() && key <= caption.end.getMseconds()) {
-                Log.d(TAG, caption.toString());
+//                Log.d(TAG, caption.toString());
                 return caption;
             }
         }

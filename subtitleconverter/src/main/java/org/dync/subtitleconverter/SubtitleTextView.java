@@ -8,9 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * @Auther jixiongxu
- * @date 2017/9/20
- * @descraption 显示字幕的字体样式
+ * 显示字幕的字体样式
  */
 
 public class SubtitleTextView extends AppCompatTextView implements View.OnTouchListener {
