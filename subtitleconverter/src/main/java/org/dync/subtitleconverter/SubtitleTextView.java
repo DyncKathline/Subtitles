@@ -36,7 +36,7 @@ public class SubtitleTextView extends AppCompatTextView implements View.OnTouchL
         // 默认白色字体
         setTextColor(Color.WHITE);
         setSingleLine(true);
-        setShadowLayer(3, 0, 0, Color.RED);
+        setShadowLayer(3, 0, 0, Color.BLUE);
         this.setOnTouchListener(this);
     }
 

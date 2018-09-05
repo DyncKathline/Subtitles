@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
                     subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
+                    subtitleview.setStart();
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载ASS成功", Toast.LENGTH_SHORT).show();
                     break;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
                     subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
+                    subtitleview.setStart();
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载SCC成功", Toast.LENGTH_SHORT).show();
                     break;
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
                     subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
+                    subtitleview.setStart();
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载SRT成功", Toast.LENGTH_SHORT).show();
                     break;
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
                     subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
+                    subtitleview.setStart();
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载STL成功", Toast.LENGTH_SHORT).show();
                     break;
@@ -106,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
                     subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
+                    subtitleview.setStart();
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载XML成功", Toast.LENGTH_SHORT).show();
                     break;

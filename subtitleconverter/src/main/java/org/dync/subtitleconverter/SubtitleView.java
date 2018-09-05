@@ -7,7 +7,6 @@ import android.support.annotation.RequiresApi;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -85,6 +84,11 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
     private Caption caption = null;
 
     /**
+     * 是否是正在播放中
+     */
+    private boolean isPalying = false;
+
+    /**
      * 后台播放
      */
     private boolean palyOnBackground = false;
@@ -125,7 +129,7 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
         subChinaTwo.setSubtitleOnTouchListener(this);
         subEnglishTwo.setSubtitleOnTouchListener(this);
         this.setOrientation(VERTICAL);
-        this.setGravity(Gravity.BOTTOM);
+//        this.setGravity(Gravity.BOTTOM);
         this.addView(subTitleView);
     }
 
@@ -134,47 +138,6 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
 
 //        view.setText(item);
         view.setText(Html.fromHtml(item));
-    }
-
-    @Override
-    public void seekTo(long position) {
-        if(palyOnBackground) {
-            return;
-        }
-        if (model != null && !model.captions.isEmpty()) {
-            List<Caption> captions = searchSub(model.captions, position);
-//            for (Caption caption : captions) {
-//                Log.d(TAG, "seekTo: " + caption.toString());
-//            }
-            if(captions.size() > 1) {//之多同时显示两个字幕，如需同时显示两个以上的只需重新自定义view增加即可
-                caption = captions.get(0);
-                if (caption != null) {
-                    setItemSubtitle(subChina, caption.content);
-                    setItemSubtitle(subEnglish, caption.content);
-                } else {
-                    setItemSubtitle(subChina, "");
-                    setItemSubtitle(subEnglish, "");
-                }
-                caption = captions.get(1);
-                if (caption != null) {
-                    setItemSubtitle(subChinaTwo, caption.content);
-                    setItemSubtitle(subEnglishTwo, caption.content);
-                } else {
-                    setItemSubtitle(subChinaTwo, "");
-                    setItemSubtitle(subEnglishTwo, "");
-                }
-            }else {
-                caption = captions.get(0);
-                if (caption != null) {
-                    setItemSubtitle(subChina, caption.content);
-                    setItemSubtitle(subEnglish, caption.content);
-                } else {
-                    setItemSubtitle(subChina, "");
-                    setItemSubtitle(subEnglish, "");
-                }
-            }
-
-        }
     }
 
     @Override
@@ -218,18 +181,59 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
     }
 
     @Override
-    public void setPause(boolean pause) {
-
+    public void setStart() {
+        isPalying = true;
     }
 
     @Override
-    public void setStart(boolean start) {
-
+    public void setPause() {
+        isPalying = false;
     }
 
     @Override
-    public void setStop(boolean stop) {
+    public void seekTo(long position) {
+        if(palyOnBackground || !isPalying) {
+            return;
+        }
+        if (model != null && !model.captions.isEmpty()) {
+            List<Caption> captions = searchSub(model.captions, position);
+//            for (Caption caption : captions) {
+//                Log.d(TAG, "seekTo: " + caption.toString());
+//            }
+            if(captions.size() > 1) {//之多同时显示两个字幕，如需同时显示两个以上的只需重新自定义view增加即可
+                caption = captions.get(0);
+                if (caption != null) {
+                    setItemSubtitle(subChina, caption.content);
+                    setItemSubtitle(subEnglish, caption.content);
+                } else {
+                    setItemSubtitle(subChina, "");
+                    setItemSubtitle(subEnglish, "");
+                }
+                caption = captions.get(1);
+                if (caption != null) {
+                    setItemSubtitle(subChinaTwo, caption.content);
+                    setItemSubtitle(subEnglishTwo, caption.content);
+                } else {
+                    setItemSubtitle(subChinaTwo, "");
+                    setItemSubtitle(subEnglishTwo, "");
+                }
+            }else {
+                caption = captions.get(0);
+                if (caption != null) {
+                    setItemSubtitle(subChina, caption.content);
+                    setItemSubtitle(subEnglish, caption.content);
+                } else {
+                    setItemSubtitle(subChina, "");
+                    setItemSubtitle(subEnglish, "");
+                }
+            }
 
+        }
+    }
+
+    @Override
+    public void setStop() {
+        isPalying = false;
     }
 
     @Override
