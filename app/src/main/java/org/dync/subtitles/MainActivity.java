@@ -77,30 +77,35 @@ public class MainActivity extends AppCompatActivity {
                 case msg_ass:
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
+                    subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载ASS成功", Toast.LENGTH_SHORT).show();
                     break;
                 case msg_scc:
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
+                    subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载SCC成功", Toast.LENGTH_SHORT).show();
                     break;
                 case msg_srt:
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
+                    subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载SRT成功", Toast.LENGTH_SHORT).show();
                     break;
                 case msg_stl:
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
+                    subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载STL成功", Toast.LENGTH_SHORT).show();
                     break;
                 case msg_xml:
                     tto = (TimedTextObject) msg.obj;
                     subtitleview.setData(tto);
+                    subtitleview.setLanguage(SubtitleView.LANGUAGE_TYPE_CHINA);
                     subtitleAdapter.setNewData(tto);
                     Toast.makeText(mContext, "加载XML成功", Toast.LENGTH_SHORT).show();
                     break;
@@ -142,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                         TimedTextObject tto;
                         TimedTextFileFormat ttff;
                         try {
-                            InputStream is = getAssets().open("standards/ASS/Oceans.Eight.2018.1080p.BluRay.x264-SPARKS.简体.ass");
+                            InputStream is = getAssets().open("standards/ASS/test.ass");
                             ttff = new FormatASS();
 
                             tto = ttff.parseFile("test", is);

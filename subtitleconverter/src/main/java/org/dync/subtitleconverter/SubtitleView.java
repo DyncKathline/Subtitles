@@ -10,10 +10,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.dync.subtitleconverter.subtitleFile.Caption;
 import org.dync.subtitleconverter.subtitleFile.TimedTextObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -55,6 +58,16 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
      * 英文字幕
      */
     private SubtitleTextView subEnglish;
+
+    /**
+     * 中文字幕
+     */
+    private SubtitleTextView subChinaTwo;
+
+    /**
+     * 英文字幕
+     */
+    private SubtitleTextView subEnglishTwo;
 
     /**
      * 当前显示节点
@@ -104,37 +117,63 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
         this.context = context;
         subTitleView = View.inflate(context, R.layout.subtitleview, null);
         subChina = subTitleView.findViewById(R.id.subTitleChina);
-        subEnglish = subTitleView.findViewById(R.id.subTitleenglish);
+        subEnglish = subTitleView.findViewById(R.id.subTitleEnglish);
+        subChinaTwo = subTitleView.findViewById(R.id.subTitleChinaTwo);
+        subEnglishTwo = subTitleView.findViewById(R.id.subTitleEnglishTwo);
         subChina.setSubtitleOnTouchListener(this);
         subEnglish.setSubtitleOnTouchListener(this);
+        subChinaTwo.setSubtitleOnTouchListener(this);
+        subEnglishTwo.setSubtitleOnTouchListener(this);
         this.setOrientation(VERTICAL);
         this.setGravity(Gravity.BOTTOM);
         this.addView(subTitleView);
     }
 
     @Override
-    public void setItemSubtitleChina(String item) {
-//        subChina.setText(item);
-        subChina.setText(Html.fromHtml(item));
-    }
+    public void setItemSubtitle(TextView view, String item) {
 
-    @Override
-    public void setItemSubtitleEnglish(String item) {
-//        subEnglish.setText(item);
-        subEnglish.setText(Html.fromHtml(item));
+//        view.setText(item);
+        view.setText(Html.fromHtml(item));
     }
 
     @Override
     public void seekTo(long position) {
-        if (model != null && !model.captions.isEmpty()) {
-            caption = searchSub(model.captions, position);
+        if(palyOnBackground) {
+            return;
         }
-        if (caption != null) {
-            setItemSubtitleChina(caption.content);
-            setItemSubtitleEnglish(caption.content);
-        } else {
-            setItemSubtitleChina("");
-            setItemSubtitleEnglish("");
+        if (model != null && !model.captions.isEmpty()) {
+            List<Caption> captions = searchSub(model.captions, position);
+//            for (Caption caption : captions) {
+//                Log.d(TAG, "seekTo: " + caption.toString());
+//            }
+            if(captions.size() > 1) {//之多同时显示两个字幕，如需同时显示两个以上的只需重新自定义view增加即可
+                caption = captions.get(0);
+                if (caption != null) {
+                    setItemSubtitle(subChina, caption.content);
+                    setItemSubtitle(subEnglish, caption.content);
+                } else {
+                    setItemSubtitle(subChina, "");
+                    setItemSubtitle(subEnglish, "");
+                }
+                caption = captions.get(1);
+                if (caption != null) {
+                    setItemSubtitle(subChinaTwo, caption.content);
+                    setItemSubtitle(subEnglishTwo, caption.content);
+                } else {
+                    setItemSubtitle(subChinaTwo, "");
+                    setItemSubtitle(subEnglishTwo, "");
+                }
+            }else {
+                caption = captions.get(0);
+                if (caption != null) {
+                    setItemSubtitle(subChina, caption.content);
+                    setItemSubtitle(subEnglish, caption.content);
+                } else {
+                    setItemSubtitle(subChina, "");
+                    setItemSubtitle(subEnglish, "");
+                }
+            }
+
         }
     }
 
@@ -152,15 +191,23 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
         if (type == LANGUAGE_TYPE_CHINA) {
             subChina.setVisibility(View.VISIBLE);
             subEnglish.setVisibility(View.GONE);
+            subChinaTwo.setVisibility(View.VISIBLE);
+            subEnglishTwo.setVisibility(View.GONE);
         } else if (type == LANGUAGE_TYPE_ENGLISH) {
             subChina.setVisibility(View.GONE);
             subEnglish.setVisibility(View.VISIBLE);
+            subChinaTwo.setVisibility(View.GONE);
+            subEnglishTwo.setVisibility(View.VISIBLE);
         } else if (type == LANGUAGE_TYPE_BOTH) {
             subChina.setVisibility(View.VISIBLE);
             subEnglish.setVisibility(View.VISIBLE);
+            subChinaTwo.setVisibility(View.VISIBLE);
+            subEnglishTwo.setVisibility(View.VISIBLE);
         } else {
             subChina.setVisibility(View.GONE);
             subEnglish.setVisibility(View.GONE);
+            subChinaTwo.setVisibility(View.GONE);
+            subEnglishTwo.setVisibility(View.GONE);
         }
     }
 
@@ -197,7 +244,7 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
      * @param key  播放的时间点
      * @return
      */
-    public Caption searchSub(TreeMap<Integer, Caption> list, long key) {
+    public List<Caption> searchSub(TreeMap<Integer, Caption> list, long key) {
 //        int start = 0;
 //        int end = list.size() - 1;
 //        while (start <= end) {
@@ -217,15 +264,21 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
 //                return caption;
 //            }
 //        }
+        List<Caption> captions = new ArrayList<>();
+        boolean hasMore = false;
         for(Integer key1 : list.keySet()) {
             Caption caption = list.get(key1);
 //            Log.d(TAG, "position: " + key + ", start: " + caption.start.getMseconds() + ",end: " + caption.end.getMseconds());
             if (key >= caption.start.getMseconds() && key <= caption.end.getMseconds()) {
 //                Log.d(TAG, caption.toString());
-                return caption;
+                hasMore = true;
+//                return caption;
+                captions.add(caption);
+            }else if (hasMore){
+                break;
             }
         }
-        return null;
+        return captions;
     }
 
     @Override

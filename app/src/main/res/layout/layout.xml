@@ -12,11 +12,6 @@
         android:scaleType="fitXY"
         android:src="@drawable/player_view_bg2" />
 
-    <org.dync.subtitleconverter.SubtitleView
-        android:id="@+id/subtitleview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
     <HorizontalScrollView
         android:id="@+id/horscroll"
         android:layout_width="match_parent"
@@ -91,6 +86,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        android:layout_marginBottom="70dp"/>
+        android:layout_marginBottom="100dp"/>
+
+
+    <org.dync.subtitleconverter.SubtitleView
+        android:id="@+id/subtitleview"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
 
 </FrameLayout>

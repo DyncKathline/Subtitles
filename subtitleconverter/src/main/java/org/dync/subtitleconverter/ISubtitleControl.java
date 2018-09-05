@@ -1,5 +1,7 @@
 package org.dync.subtitleconverter;
 
+import android.widget.TextView;
+
 import org.dync.subtitleconverter.subtitleFile.TimedTextObject;
 
 /**
@@ -9,18 +11,12 @@ import org.dync.subtitleconverter.subtitleFile.TimedTextObject;
 public interface ISubtitleControl
 {
     /**
-     * 设置中文字幕
-     * 
+     * 设置字幕
+     *
+     * @param view
      * @param item
      */
-    void setItemSubtitleChina(String item);
-
-    /**
-     * 设置英文字幕
-     * 
-     * @param item
-     */
-    void setItemSubtitleEnglish(String item);
+    void setItemSubtitle(TextView view, String item);
 
     /**
      * 定位设置字幕，单位毫秒
