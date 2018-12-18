@@ -84,11 +84,6 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
     private Caption caption = null;
 
     /**
-     * 是否是正在播放中
-     */
-    private boolean isPalying = false;
-
-    /**
      * 后台播放
      */
     private boolean palyOnBackground = false;
@@ -182,17 +177,17 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
 
     @Override
     public void setStart() {
-        isPalying = true;
+
     }
 
     @Override
     public void setPause() {
-        isPalying = false;
+
     }
 
     @Override
     public void seekTo(long position) {
-        if(palyOnBackground || !isPalying) {
+        if(palyOnBackground) {
             return;
         }
         if (model != null && !model.captions.isEmpty()) {
@@ -217,7 +212,7 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
                     setItemSubtitle(subChinaTwo, "");
                     setItemSubtitle(subEnglishTwo, "");
                 }
-            }else {
+            }else if(captions.size() > 0)  {
                 caption = captions.get(0);
                 if (caption != null) {
                     setItemSubtitle(subChina, caption.content);
@@ -233,7 +228,7 @@ public class SubtitleView extends LinearLayout implements ISubtitleControl, Subt
 
     @Override
     public void setStop() {
-        isPalying = false;
+
     }
 
     @Override
